@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ current_user.name }}{% endblock %}
+
+{% block inside_right %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.student_id.label }}<br>
+            {{ form.student_id(size=32) }}<br>
+            {% for error in form.student_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    {% if data %}
+    <div class="container">   
+        <div>
+            <form action="{{ url_for('main.roll_call_index') }}">            
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">出席</th>
+                            <th scope="col">姓名</th>
+                            <th scope="col">班級</th>
+                            <th scope="col">學號</th>
+                            <th scope="col">課堂名稱</th>
+                            <th scope="col">時間</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for key in data%}
+                        <tr>
+                            <td>
+                                {% if data[key]["attend"]==True%}
+                                    <input type="checkbox" id="checkbox{{ key }}" checked>                                    
+                                {% else %}
+                                    <input type="checkbox" id="checkbox{{ key }}">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <p id="student_name{{ key }}">{{ data[key]["student_name"] }}</p>
+                            </td>                        
+                            <td>
+                                <p id="class_name{{ key }}">{{ data[key]["class_name"] }}</p>
+                            </td>
+                            <td>
+                                <p id="student_id{{ key }}">{{ data[key]["student_id"] }}</p>                                
+                            </td>
+                            <td>
+                                <p id="course_name{{ key }}">{{ data[key]["course_name"] }}</p>
+                            </td>
+                            <td>
+                                <p id="date{{ key }}">{{ data[key]["date"] }}</p>
+                            </td>
+                            <td>
+                                <input type="button" id="{{ key }}" value="修改">
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>        
+        
+      </div>
+        
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/edit-record.js') }}"></script>
+{% endblock %}

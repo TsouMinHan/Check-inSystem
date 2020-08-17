@@ -1,0 +1,11 @@
+.vscode
+__pycache__
+venv
+app/concept-master
+app/static/doc/dlib-19.19
+app/static/photo
+app/static/temp
+app/static/audio
+app/static/iRecorder Capture
+app/static/photo
+app/static/photos

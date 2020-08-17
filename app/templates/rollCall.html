@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}點名{% endblock %}
+
+{% block inside_right %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.class_name.label }}<br>
+            {{ form.class_name }}<br>
+            {% for error in form.class_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <!-- {% if data %}
+    <div class="container">   
+        <div>
+            <form action="{{ url_for('main.roll_call_index') }}">            
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">出席</th>
+                            <th scope="col">姓名</th>
+                            <th scope="col">班級</th>
+                            <th scope="col">學號</th>
+                            <th scope="col">課堂名稱</th>
+                            <th scope="col">時間</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for key in data%}
+                        <tr>
+                            <td>
+                                {% if data[key]["attend"]==True%}
+                                    <input type="checkbox" id="{{ data[key]['student_id'] }}" checked>                                    
+                                {% else %}
+                                    <input type="checkbox" id="{{ data[key]['student_id'] }}">
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ key }}
+                            </td>                        
+                            <td>
+                                {{ data[key]["class_name"] }}
+                            </td>
+                            <td>
+                                {{ data[key]["student_id"] }}
+                            </td>
+                            <td>
+                                {{ data[key]["course_name"] }}
+                            </td>
+                            <td>
+                                {{ data[key]["date"] }}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            <input type="submit" id="sent_to_record"value="確認送出">
+        </div>        
+        
+      </div>
+        
+    {% endif %} -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/roll-call.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block inside_right %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <h1>修改個人檔案</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32, readonly=true, value=data['name']) }}<br>
+            {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+     
+        <p>
+            {{ form.student_num.label }}<br>
+            {{ form.student_num(size=32, readonly=true, value=data['student_id']) }}<br>
+            {% for error in form.student_num.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        </p>
+     
+        <p>
+            {{ form.class_.label }}<br>
+            {{ form.class_(size=32, readonly=true, value=data['class_']) }}<br>
+            {% for error in form.class_.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.photo.label }}<br>
+            {{ form.photo(size=32) }}<br>
+            {% for error in form.photo.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.date_of_birth.label }}<br>
+            {{ form.date_of_birth(size=32, readonly=true, value=data['date_of_birth']) }}<br>
+            {% for error in form.date_of_birth.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.father_name.label }}<br>
+            {{ form.father_name(size=32, readonly=true, value=data['father_name']) }}<br>
+            {% for error in form.father_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mother_name.label }}<br>
+            {{ form.mother_name(size=32, readonly=true, value=data['mother_name']) }}<br>
+            {% for error in form.mother_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.phone_number.label }}<br>
+            {{ form.phone_number(size=32, value=data['phone_number']) }}<br>
+            {% for error in form.phone_number.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=32, readonly=true, value=data['address']) }}<br>
+            {% for error in form.address.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.line_id.label }}<br>
+            {{ form.line_id(size=32, value=data['line_id']) }}<br>
+            {% for error in form.line_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <a href="https://notify-bot.line.me/my/" target="_blank">登入Line取得ID</a>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

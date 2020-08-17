@@ -1,0 +1,126 @@
+{% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content=""> 
+    <title>{% block title %}人臉辨識雲端點名系統{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/icon.ico') }}"> 
+    {% block styles %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/top-btn.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/Smooth-Scrolling.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">
+        
+    {% endblock %}
+    
+    {% block scripts %}      
+      <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/top-btn.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/base.js') }}"></script>
+    {% endblock %}   
+
+{% endblock %}
+
+{% block body%}
+
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+{% block navbar %}
+  <nav class="navbar navbar-inverse navbar-fixed-top">        
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{url_for('main.index')}}">首頁</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right"> 
+          {% if not current_user.is_anonymous %}
+            {% if current_user.get_table_name() == "Teacher" %}
+              <li>
+                <a href="{{ url_for('main.create_account_index') }}">建立帳號</a>
+              </li>
+              <li>
+                <a href="{{ url_for('main.create_course_index') }}">建立課程</a>
+              </li>
+              <li>
+                <a href="{{ url_for('main.edit_record_index') }}">查閱點名紀錄</a>
+              </li>
+              <li>
+                <a href="{{ url_for('main.roll_call_index') }}">點名</a>
+              </li>
+              {% elif current_user.get_table_name() == "Student"%}
+              <li>
+                <a href="{{ url_for('main.profile') }}">修改個人資料</a>
+              </li>   
+              <li>
+                <a href="{{ url_for('main.show_record_index', student_id=current_user.student_id) }}">查閱點名記錄</a>
+              </li>   
+            {% endif %}     
+          {% endif %}  
+          {% if current_user.is_anonymous %}
+          <li>
+            <a href="{{ url_for('main.login') }}">登入</a>
+          </li>        
+          {% else %}
+          <li>
+            <a href="{{ url_for('main.logout') }}">登出</a>
+          </li>          
+          {% endif %} 
+        </ul>                  
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block content%}
+<div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <div>
+          <div class="row placeholders">  
+            {% block inside_left %}       
+              <div class="placeholder">
+                {% set err_cmd = "this.onerror=null;this.src=\"" + url_for('static', filename='img/custom_photo.png') + "\";" %}
+
+                {% if current_user.is_anonymous %}
+                    <img src="{{ url_for('static', filename='img/custom_photo.png') }}" width="200" height="200" class="img-responsive" alt="Photo">
+                {% elif current_user.get_table_name() == "Teacher" %}
+                    <img src="{{ url_for('static', filename='photos/' + current_user.teacher_id + '.jpg') }}" width="200" height="200" class="img-responsive" onerror="{{ err_cmd }}">
+                    <h4>{{ current_user.name }}</h4>
+                {% else %}
+                    <img src="{{ url_for('static', filename='photos/student/' + current_user.student_id + '.jpg') }}" width="200" height="200" class="img-responsive" onerror="{{ err_cmd }}">
+                    <h4>{{ current_user.name }}</h4>
+                {% endif %} 
+              </div> 
+            {% endblock %}         
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">    
+    {% block inside_right %}
+    {% endblock %}
+  </div>
+{% endblock %}
+{% endblock %}
+
+{% block endScripts %}
+
+{% endblock %}

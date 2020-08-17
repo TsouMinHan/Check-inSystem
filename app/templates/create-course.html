@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}建立課程{% endblock %}
+
+{% block inside_right %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.course_name.label }}<br>
+            {{ form.course_name(size=32) }}<br>
+            {% for error in form.course_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.class_name.label }}<br>
+            {{ form.class_name }}<br>
+            {% for error in form.class_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+{% endblock %}

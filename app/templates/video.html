@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display Webcam Stream</title>
+
+</head>
+ 
+<body>
+  <audio controls>
+    <source src="horse.ogg" type="audio/ogg">
+    <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+<!-- <script>
+  (async () => {
+    let audio = new Audio();
+    audio.srcObject = await navigator.mediaDevices.getUserMedia({audio: true, video: false});
+    audio.play();
+  })();
+</script> -->
+<script>
+  function play() {
+    var audio = new Audio('C:\\Users\\tsou\\AppData\\Local\\Temp\\tmp7g2_5io0.mp3');
+
+    audio.play();
+  }
+</script>
+</body>
+</html>

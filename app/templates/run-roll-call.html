@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }} 點名</title>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <style>
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            /* Mirror the local video */
+            transform: scale(1, 1);            /*For Firefox (& IE) */
+            -webkit-transform: scale(1, 1);     /*for Chrome & Opera (& Safari) */
+        }
+        canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index:1
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align:center;"><video id="myVideo" autoplay></video></div>
+    <div style="position: fixed;" id="send_div">
+        <form action="{{ url_for('main.roll_call_index') }}">
+            <input type="hidden" id="send" name="send" value="1">
+            <input type="submit" value="結束" id="send_btn"/>
+        </form>
+    </div>
+    
+
+    <!-- <button id="audio_btn" style="display:none"></button> -->
+    <!-- <audio><source src="{{ url_for('static', filename='temp/tmpf1q6yrxr.mp3') }}"></audio> -->
+    <audio><source id="audio_source" src=""></source></audio>
+    <p id="t"></p>
+
+    <script src="{{ url_for('static', filename='js/local.js') }}"></script>
+    <script id="objDetect" src="{{ url_for('static', filename='js/objDetect.js') }}" data-source="myVideo" data-mirror="true" data-uploadWidth="1280" data-scoreThreshold="0.40" data-title="{{ title }}"></script>
+</body>
+</html>
